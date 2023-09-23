@@ -1,8 +1,13 @@
 import express from 'express';
-import {  } from '../controllers/comment.js';
+import { addComment, getAllComment, deleteComment } from '../controllers/comment.js';
+import { verifyToken } from '../verifyToken.js';
 
 const router = express.Router();
 
-router.put("/", );
+router.post("/", verifyToken, addComment);
+
+router.delete("/:id", verifyToken, deleteComment);
+
+router.get("/:videoId", getAllComment);
 
 export default router;

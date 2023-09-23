@@ -104,7 +104,7 @@ export const subscribedVideo = async (req, res, next) => {
             })
         );
 
-        res.status(200).json(list.flat().sort((a, b) => b.createdAt - a.createdAt));
+        res.status(200).json(list.flat().sort((a, b) => b.createdAt - a.createdAt)); // + 오름차순(oldest) - 내림차순(latest)
     } catch (err) {
         next(err);
     }
@@ -113,7 +113,7 @@ export const subscribedVideo = async (req, res, next) => {
 export const searchVideo = async (req, res, next) => {
     const query = req.query.q;
     try {
-        const videos = await Video.find({ title: { $regex: query, $option: "i" } }).limit(10);
+        const videos = await Video.find({ title: { $regex: query, $options: "i" } }).limit(10);
         res.status(200).json(videos);
     } catch (err) {
         next(err);
